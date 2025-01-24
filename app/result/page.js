@@ -29,9 +29,9 @@ const Result = () => {
     setQuestionTimes(storedQuestionTimes);
   }, []);
 
-  if (!questionsData.length) {
-    return <p>.</p>;
-  }
+  // if (!questionsData.length) {
+  //   return <p>.</p>;
+  // }
 
   // Filter only attempted questions
   const attemptedQuestions = answers.filter((answer) => answer.answer !== null);
