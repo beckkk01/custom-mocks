@@ -30,7 +30,7 @@ const Result = () => {
   }, []);
 
   // if (!questionsData.length) {
-  //   return <p>.</p>;
+  //   return <p>Error: Unable to fetch questions. Please restart the test.</p>;
   // }
 
   // Filter only attempted questions
@@ -43,6 +43,55 @@ const Result = () => {
     return question && question.answer === answerObj.answer ? acc + 1 : acc;
   }, 0);
   const totalIncorrect = totalAttempted - score;
+
+  // Get incorrect questions
+  const incorrectQuestions = attemptedQuestions
+    .filter((answerObj) => {
+      const question = questionsData.find((q) => q.id === answerObj.questionId);
+      return question && question.answer !== answerObj.answer;
+    })
+    .map((answerObj) => {
+      const question = questionsData.find((q) => q.id === answerObj.questionId);
+      return {
+        id: question.id,
+        question: question.question,
+        options: question.options,
+        answer: question.answer,
+      };
+    });
+
+  // Function to export incorrect questions with Save As dialog
+  const exportToJSON = async () => {
+    try {
+      // Create a JSON string from the incorrect questions
+      const jsonString = JSON.stringify(incorrectQuestions, null, 2);
+
+      // Use the File System Access API
+      const fileHandle = await window.showSaveFilePicker({
+        suggestedName: "incorrect_questions.json",
+        types: [
+          {
+            description: "JSON Files",
+            accept: {
+              "application/json": [".json"],
+            },
+          },
+        ],
+      });
+
+      // Create a writable stream and write the JSON data to the file
+      const writableStream = await fileHandle.createWritable();
+      await writableStream.write(jsonString);
+      await writableStream.close();
+
+      alert("File saved successfully!");
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.error("Error saving file:", error);
+        alert("Failed to save file. Please try again.");
+      }
+    }
+  };
 
   const convertSeconds = (totalTime) => {
     const minutes = Math.floor(totalTime / 60);
@@ -157,6 +206,16 @@ const Result = () => {
           </div>
         );
       })}
+
+      {/* Export Incorrect Questions Button */}
+      <div className="mt-6 text-center">
+        <button
+          onClick={exportToJSON}
+          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700"
+        >
+          Export Incorrect Questions
+        </button>
+      </div>
     </div>
   );
 };
