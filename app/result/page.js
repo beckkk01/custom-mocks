@@ -30,7 +30,7 @@ const Result = () => {
   }, []);
 
   if (!questionsData.length) {
-    return <p>Error: Unable to fetch questions. Please restart the test.</p>;
+    return <p>.</p>;
   }
 
   // Filter only attempted questions
