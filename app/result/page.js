@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Latex from "react-latex-next";
+import "katex/dist/katex.min.css";
 
 const Result = () => {
   const [questionsData, setQuestionsData] = useState([]);
@@ -162,7 +164,7 @@ const Result = () => {
             className="mb-6 p-4 border rounded-lg shadow-sm bg-gray-50"
           >
             <p className="text-lg mb-4">
-              {q.id}. {q.question}
+              {q.id}. <Latex>{q.question}</Latex>
             </p>
             <div className="flex justify-between items-center mb-4">
               <p
@@ -193,7 +195,8 @@ const Result = () => {
                       : "bg-white text-gray-800"
                   }`}
                 >
-                  {String.fromCharCode(65 + optionIndex)}. {option}
+                  {String.fromCharCode(65 + optionIndex)}.{" "}
+                  <Latex>{option}</Latex>
                   {userAnswer.answer === option && option !== q.answer && (
                     <span className="text-sm font-semibold ml-2">(✗)</span>
                   )}

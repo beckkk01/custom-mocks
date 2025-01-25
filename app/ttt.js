@@ -4,7 +4,6 @@ import Question from "../app/components/Questions";
 
 const Home = () => {
   const [questions, setQuestions] = useState([]);
-  const [originalQuestions, setOriginalQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [mainTimer, setMainTimer] = useState(0);
@@ -36,15 +35,9 @@ const Home = () => {
     reader.onload = (e) => {
       try {
         const uploadedQuestions = JSON.parse(e.target.result);
-
-        // Store original questions
-        setOriginalQuestions(uploadedQuestions);
-
-        // Apply shuffling based on current preference
         setQuestions(
           shouldShuffle ? shuffleArray(uploadedQuestions) : uploadedQuestions
         );
-
         localStorage.setItem(
           "uploadedQuestions",
           JSON.stringify(uploadedQuestions)
@@ -58,15 +51,6 @@ const Home = () => {
       reader.readAsText(file);
     }
   };
-
-  // Add a useEffect to handle shuffling when shouldShuffle changes
-  useEffect(() => {
-    if (originalQuestions.length > 0) {
-      setQuestions(
-        shouldShuffle ? shuffleArray(originalQuestions) : [...originalQuestions]
-      );
-    }
-  }, [shouldShuffle, originalQuestions]);
 
   const goFullscreen = () => {
     if (document.documentElement.requestFullscreen) {
@@ -188,6 +172,7 @@ const Home = () => {
         {!testStarted ? (
           <div className="bg-white shadow-2xl rounded-3xl overflow-hidden max-w-xl mx-auto">
             <div className="bg-green-700 p-10 text-center relative overflow-hidden">
+              {/* Background pattern */}
               <div className="absolute inset-0 opacity-10">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -208,6 +193,7 @@ const Home = () => {
                 </svg>
               </div>
 
+              {/* Content */}
               <div className="relative z-10">
                 <h1 className="text-5xl font-extrabold text-white mb-4 tracking-tight drop-shadow-lg">
                   Custom Mock Test
@@ -257,35 +243,36 @@ const Home = () => {
                   </div>
                 </div>
 
-                {questions.length > 0 && (
-                  <div className="mb-4">
-                    <label
-                      htmlFor="shuffle-select"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Question Order
-                    </label>
-                    <select
-                      id="shuffle-select"
-                      value={shouldShuffle ? "shuffle" : "original"}
-                      onChange={(e) =>
-                        setShouldShuffle(e.target.value === "shuffle")
-                      }
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                    >
-                      <option value="shuffle">Shuffle Questions</option>
-                      <option value="original">Keep Original Order</option>
-                    </select>
+                {/* Shuffle dropdown */}
+                <div className="mb-4">
+                  <label
+                    htmlFor="shuffle-select"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Question Order
+                  </label>
+                  <select
+                    id="shuffle-select"
+                    value={shouldShuffle ? "shuffle" : "original"}
+                    onChange={(e) =>
+                      setShouldShuffle(e.target.value === "shuffle")
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  >
+                    <option value="shuffle">Shuffle Questions</option>
+                    <option value="original">Keep Original Order</option>
+                  </select>
+                </div>
 
-                    <button
-                      onClick={startTest}
-                      className="w-full mt-5 px-6 py-4 bg-gradient-to-r from-green-700 to-emerald-800 text-white rounded-xl font-bold 
-                      hover:from-green-700 hover:to-emerald-800 transition-all transform 
-                      hover:scale-105 shadow-xl hover:shadow-2xl active:scale-95"
-                    >
-                      Begin Test
-                    </button>
-                  </div>
+                {questions.length > 0 && (
+                  <button
+                    onClick={startTest}
+                    className="w-full px-6 py-4 bg-gradient-to-r from-green-700 to-emerald-800 text-white rounded-xl font-bold 
+                    hover:from-green-700 hover:to-emerald-800 transition-all transform 
+                    hover:scale-105 shadow-xl hover:shadow-2xl active:scale-95"
+                  >
+                    Begin Test
+                  </button>
                 )}
               </div>
             </div>

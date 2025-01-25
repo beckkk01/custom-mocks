@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Latex from "react-latex-next";
+import "katex/dist/katex.min.css";
 
 const Question = ({ question, options, handleAnswer }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -11,7 +13,10 @@ const Question = ({ question, options, handleAnswer }) => {
 
   return (
     <div className="bg-white rounded-lg p-6 shadow-md">
-      <h2 className="text-xl text-gray-800 mb-6">{question}</h2>
+      <h2 className="text-xl text-gray-800 mb-6">
+        <Latex>{question}</Latex>
+      </h2>
+
       <div className="space-y-4">
         {options.map((option, index) => (
           <button
@@ -25,7 +30,7 @@ const Question = ({ question, options, handleAnswer }) => {
           >
             <span className="mr-2">{optionLabels[index]}.</span>{" "}
             {/* Add label */}
-            {option}
+            <Latex>{option}</Latex>
           </button>
         ))}
       </div>

@@ -1,0 +1,887 @@
+[
+  {
+    "id": 1,
+    "question": "A and B together can complete a work in 8 days and B and C together in 12 days. All of the three together can complete the work in 6 days. In how much time will A and C together complete the work?",
+    "options": ["8 days", "10 days", "12 days", "20 days"],
+    "answer": "8 days"
+  },
+  {
+    "id": 2,
+    "question": "A work can be completed by P and Q in 12 days, Q and R in 15 days, R and P in 20 days. In how many days P alone can finish the work?",
+    "options": ["10 days", "20 days", "30 days", "60 days"],
+    "answer": "20 days"
+  },
+  {
+    "id": 3,
+    "question": "A and B working together can do a piece of work in $4 \\frac{1}{2}$ hours. B and C working together can do it in 3 hours. C and A working together can do it in $2 \\frac{1}{4}$ hours. All of them begin the work at the same time. Find how much time they will take to finish the piece of work.",
+    "options": ["3 hours", "2 hours", "2.5 hours", "3.25 hours"],
+    "answer": "2 hours"
+  },
+  {
+    "id": 4,
+    "question": "If A and B together can finish a piece of work in 20 days, B and C in 10 days and C and A in 12 days, then A, B, C jointly can finish the same work in",
+    "options": [
+      "$4 \\frac{2}{7}$ days",
+      "30 days",
+      "$8 \\frac{4}{7}$ days",
+      "$7 \\frac{60}{1}$ days"
+    ],
+    "answer": "$8 \\frac{4}{7}$ days"
+  },
+  {
+    "id": 5,
+    "question": "A and B together can do a piece of work in 12 days, while B alone can finish it in 30 days. A alone can finish the work in",
+    "options": ["20 days", "25 days", "15 days", "18 days"],
+    "answer": "20 days"
+  },
+  {
+    "id": 6,
+    "question": "A and B can separately do a piece of work in 6 days and 12 days respectively. How long will they together take to do the work?",
+    "options": ["9 days", "18 days", "6 days", "4 days"],
+    "answer": "4 days"
+  },
+  {
+    "id": 7,
+    "question": "Ronald and Elan are working on an Assignment. Ronald takes 6 hours to type 32 pages on a computer, while Elan takes 5 hours to type 40 pages. How much time will they take working together on two different computers to type an assignment of 110 pages?",
+    "options": ["7 hrs. 30 min.", "8 hrs.", "8 hrs. 15 min.", "8 hrs. 25 min."],
+    "answer": "8 hrs. 15 min."
+  },
+  {
+    "id": 8,
+    "question": "A can do as much work as B and C together can do. A and B can together do a piece of work in 9 hours 36 minutes and C can do it in 48 hours. The time (in hours) that B needs to do the work alone, is:",
+    "options": ["18 hrs", "24 hrs", "30 hrs", "12 hrs"],
+    "answer": "12 hrs"
+  },
+  {
+    "id": 9,
+    "question": "A can do a piece of work in 12 days and B in 15 days. They work together for 5 days and then B left. The days taken by A to finish the remaining work is",
+    "options": ["3", "5", "10", "12"],
+    "answer": "3"
+  },
+  {
+    "id": 10,
+    "question": "A can complete a work in ‘m’ days and B can complete it in ‘n’ days. How many days will it take to complete the work if both A and B work together?",
+    "options": [
+      "(m + n) days",
+      "$\\frac{1}{m} + \\frac{1}{n}$ days",
+      "$\\frac{mn}{m+n}$ days",
+      "$\\frac{mn}{m+n}$ days"
+    ],
+    "answer": "$\\frac{mn}{m+n}$ days"
+  },
+  {
+    "id": 11,
+    "question": "Three men A, B and C working together can do a job in 6 hours less time than A alone, in 1 hour less time than B alone and in one half the time needed by C when working alone. Then A and B together can do the job in",
+    "options": [
+      "$\\frac{2}{3}$ hour",
+      "$\\frac{3}{4}$ hour",
+      "$\\frac{3}{2}$ hour",
+      "$\\frac{4}{3}$ hour"
+    ],
+    "answer": "$\\frac{4}{3}$ hour"
+  },
+  {
+    "id": 12,
+    "question": "A takes three times as long as B and C together to do a job. B takes four times as long as A and C together to do the work. If all the three, working together can complete the job in 24 days, then the number of days, A alone will take to finish the job is",
+    "options": ["100", "96", "95", "90"],
+    "answer": "96"
+  },
+  {
+    "id": 13,
+    "question": "A can do a piece of work in 4 days and B can do it in 12 days. In how many days will they finish the work, both working together?",
+    "options": ["4 days", "6 days", "2 days", "3 days"],
+    "answer": "3 days"
+  },
+  {
+    "id": 14,
+    "question": "A can do $\\frac{1}{4}$ of a work in 10 days. B can do $\\frac{1}{3}$ of the work in 20 days. In how many days can both A and B together do the work?",
+    "options": ["30 days", "32 days", "24 days", "25 days"],
+    "answer": "24 days"
+  },
+  {
+    "id": 15,
+    "question": "15 men take 20 days to complete a job working 8 hours a day. The number of hours a day should 20 men take to complete the job in 12 days",
+    "options": ["5 hours", "10 hours", "15 hours", "18 hours"],
+    "answer": "10 hours"
+  },
+  {
+    "id": 16,
+    "question": "A and B working separately can do a piece of work in 9 and 15 days respectively. If they work for a day alternately, with A beginning, then the work will be completed in",
+    "options": ["10 days", "11 days", "9 days", "12 days"],
+    "answer": "11 days"
+  },
+  {
+    "id": 17,
+    "question": "How many men need to be employed to complete a job in 5 days, if 15 men can complete $\\frac{1}{3}$ of the job in 7 days?",
+    "options": ["20", "21", "45", "63"],
+    "answer": "63"
+  },
+  {
+    "id": 18,
+    "question": "x can copy 80 pages in 20 hours, x and y together can copy 135 pages in 27 hours. Then y can copy 20 pages in",
+    "options": ["20 hours", "3 hours", "24 hours", "12 hours"],
+    "answer": "12 hours"
+  },
+  {
+    "id": 19,
+    "question": "A and B can do a piece of work in 15 days. B and C can do a similar work in 12 days and C and A in 10 days. How many days will A take to do the work by himself?",
+    "options": ["13", "24", "40", "8"],
+    "answer": "24"
+  },
+  {
+    "id": 20,
+    "question": "A can do a piece of work in 25 days and B can do the same work in 30 days. They work together for 5 days, how much of work is left?",
+    "options": [
+      "$\\frac{11}{30}$",
+      "$\\frac{15}{30}$",
+      "$\\frac{19}{30}$",
+      "$\\frac{12}{30}$"
+    ],
+    "answer": "$\\frac{19}{30}$"
+  },
+  {
+    "id": 21,
+    "question": "A’s 2 days’ work is equal to B’s 3 days’ work. If A can complete the work in 8 days then to complete the work B will take",
+    "options": ["14 days", "12 days", "15 days", "16 days"],
+    "answer": "12 days"
+  },
+  {
+    "id": 22,
+    "question": "16 men are able to complete a piece of work in 12 days working 14 hours a day. How long will 28 men, working 12 hours a day, take to complete the work?",
+    "options": ["10 days", "7 days", "8 days", "6 days"],
+    "answer": "8 days"
+  },
+  {
+    "id": 23,
+    "question": "A and B can do a given piece of work in 8 days, B and C can do the same work in 12 days and A, B, C complete it in 6 days. Number of days required to finish the work by A and C is",
+    "options": ["16", "8", "12", "24"],
+    "answer": "8"
+  },
+  {
+    "id": 24,
+    "question": "If 90 men can do a certain job in 16 days, working 12 hours per day, then the part of that work which can be completed by 70 men in 24 days, working 8 hours per day is",
+    "options": [
+      "$\\frac{1}{3}$",
+      "$\\frac{2}{3}$",
+      "$\\frac{7}{9}$",
+      "$\\frac{5}{8}$"
+    ],
+    "answer": "$\\frac{7}{9}$"
+  },
+  {
+    "id": 25,
+    "question": "A, B and C can do a work separately in 16, 32 and 48 days respectively. They started the work together but B left off 8 days and C six days before the completion of the work. In what time is the work finished?",
+    "options": ["10 days", "9 days", "12 days", "14 days"],
+    "answer": "12 days"
+  },
+  {
+    "id": 26,
+    "question": "A and B can do a piece of work in 15 days. B and C can do the same work in 10 days and A and C can do the same in 12 days. Time taken by A, B and C together to do the job is",
+    "options": ["4 days", "9 days", "8 days", "5 days"],
+    "answer": "8 days"
+  },
+  {
+    "id": 27,
+    "question": "A, B and C can complete a work in 10, 12 and 15 days respectively. A left the work 5 days before the work was completed and B left 2 days after A had left. Number of days required to complete the whole work is :",
+    "options": ["$8 \\frac{2}{3}$", "$6 \\frac{2}{3}$", "7", "6"],
+    "answer": "7"
+  },
+  {
+    "id": 28,
+    "question": "A man can do a piece of work in 30 hours. If he works with his son then the same piece of work is finished in 20 hours. If the son works alone he can do the work in",
+    "options": ["60 hours", "50 hours", "25 hours", "10 hours"],
+    "answer": "60 hours"
+  },
+  {
+    "id": 29,
+    "question": "A and B together can finish a job in 24 days, while A, B and C together can finish the same job in 8 days. C alone will finish the job in",
+    "options": ["12 days", "14 days", "16 days", "24 days"],
+    "answer": "12 days"
+  },
+  {
+    "id": 30,
+    "question": "A, B and C working separately can do a piece of work in 11 days, 20 days and 55 days respectively. In how many days, the work will be completed if A is assisted by B and C on alternate days?",
+    "options": ["2", "6", "4", "8"],
+    "answer": "8"
+  },
+  {
+    "id": 31,
+    "question": "A can do a piece of work in 18 days. He worked at it for 12 days and B finished the remaining work in 8 days. B alone can do the whole work in",
+    "options": ["16 days", "24 days", "28 days", "29 days"],
+    "answer": "24 days"
+  },
+  {
+    "id": 32,
+    "question": "A and B together can do a piece of work in 9 days. If A does thrice the work of B in a given time, the time A alone will take to finish the work is",
+    "options": ["4 days", "6 days", "8 days", "12 days"],
+    "answer": "12 days"
+  },
+  {
+    "id": 33,
+    "question": "A canal of a village can be cleaned by 24 villagers in 12 days. The number of days in which 36 villagers can clean the canal is",
+    "options": ["18", "8", "72", "16"],
+    "answer": "8"
+  },
+  {
+    "id": 34,
+    "question": "A can do as much work in 4 days as B can do in 5 days, and B can do as much work in 6 days as C in 7 days. In what time will C do a piece of work which A can do in a week?",
+    "options": [
+      "$10 \\frac{5}{24}$ days",
+      "$4 \\frac{4}{5}$ days",
+      "$6 \\frac{8}{15}$ days",
+      "$12 \\frac{6}{19}$ days"
+    ],
+    "answer": "$10 \\frac{5}{24}$ days"
+  },
+  {
+    "id": 35,
+    "question": "If 42 persons consume 144 kg of wheat in 15 days, then in how many days will 30 persons consume 48 kg of wheat?",
+    "options": ["8 days", "7 days", "12 days", "6 days"],
+    "answer": "6 days"
+  },
+  {
+    "id": 36,
+    "question": "A father can do a job as fast as his two sons working together. If one son does the job in 3 hours and the other in 6 hours, the number of hours taken by the father, to do the job alone is",
+    "options": ["1", "2", "3", "4"],
+    "answer": "2"
+  },
+  {
+    "id": 37,
+    "question": "If 35 men can finish a piece of work in 8 days, then the number of men who can do the same work in 10 days is:",
+    "options": ["38", "28", "19", "17"],
+    "answer": "28"
+  },
+  {
+    "id": 38,
+    "question": "‘x’ number of men can finish a piece of work in 30 days. If there were 6 men more, the work could be finished in 10 days less. The original number of men is",
+    "options": ["6", "10", "12", "15"],
+    "answer": "12"
+  },
+  {
+    "id": 39,
+    "question": "Some carpenters promised to do a job in 9 days but 5 of them were absent and remaining men did the job in 12 days. The original number of carpenters was",
+    "options": ["24", "20", "16", "18"],
+    "answer": "20"
+  },
+  {
+    "id": 40,
+    "question": "Working 8 hours a day, Anu can copy a book in 18 days. How many hours a day should she work so as to finish the work in 12 days?",
+    "options": ["12 hours", "10 hours", "11 hours", "13 hours"],
+    "answer": "12 hours"
+  },
+  {
+    "id": 41,
+    "question": "Some persons can do a piece of work in 12 days. Two times the number of such persons will do half of the work in",
+    "options": ["9 days", "6 days", "5 days", "3 days"],
+    "answer": "3 days"
+  },
+  {
+    "id": 42,
+    "question": "If the work done by (x –1) men in (x + 1) days is to the work done by (x + 2) men in (x – 1) days are in the ratio 9 : 10, then the value of x is equal to :",
+    "options": ["5", "6", "7", "8"],
+    "answer": "8"
+  },
+  {
+    "id": 43,
+    "question": "One man, 3 women and 4 boys can do a piece of work in 96 hours, 2 men and 8 boys can do it in 80 hours, 2 men and 3 women can do it in 120 hours. 5 men and 12 boys can do it in",
+    "options": [
+      "$39 \\frac{1}{11}$ hours",
+      "$42 \\frac{7}{11}$ hours",
+      "$43 \\frac{7}{11}$ hours",
+      "44 hours"
+    ],
+    "answer": "$42 \\frac{7}{11}$ hours"
+  },
+  {
+    "id": 44,
+    "question": "If x men can do a piece of work in x days, then the number of days in which y men can do the same work is",
+    "options": [
+      "xy days",
+      "$\\frac{y}{x^2}$ days",
+      "$\\frac{x^2}{y}$ days",
+      "$x^2y$ days"
+    ],
+    "answer": "$\\frac{x^2}{y}$ days"
+  },
+  {
+    "id": 45,
+    "question": "30 men can repair a road in 18 days. They are joined by 6 more workers. Now the road can be repaired in",
+    "options": ["14 days", "15 days", "16 days", "17 days"],
+    "answer": "15 days"
+  },
+  {
+    "id": 46,
+    "question": "3 men and 7 women can do a job in 5 days, while 4 men and 6 women can do it in 4 days. The number of days required for a group of 10 women working together, at the same rate as before, to finish the same job is :",
+    "options": ["30 days", "36 days", "40 days", "20 days"],
+    "answer": "20 days"
+  },
+  {
+    "id": 47,
+    "question": "A contractor undertook to finish a work in 92 days and employed 110 men. After 48 days, he found that he had already done $\\frac{3}{5}$ part of the work, the number of men he can withdraw so that the work may still be finished in time is :",
+    "options": ["45", "40", "35", "30"],
+    "answer": "30"
+  },
+  {
+    "id": 48,
+    "question": "A contractor undertook to finish a certain work in 124 days and employed 120 men. After 64 days, he found that he had already done $\\frac{2}{3}$ of the work. How many men can be discharged now so that the work may finish in time?",
+    "options": ["48", "56", "40", "50"],
+    "answer": "56"
+  },
+  {
+    "id": 49,
+    "question": "If 7 men working 7 hrs a day for each of 7 days produce 7 units of work, then the units of work produced by 5 men working 5 hrs a day for each of 5 days is",
+    "options": [
+      "$\\frac{25}{343}$",
+      "$\\frac{125}{49}$",
+      "$\\frac{49}{125}$",
+      "$\\frac{343}{25}$"
+    ],
+    "answer": "$\\frac{125}{49}$"
+  },
+  {
+    "id": 50,
+    "question": "A does 30% of a work in 30 days. He then calls in B and they together finish the remaining work in 20 days. How long B alone would take to do the whole work?",
+    "options": ["40 days", "80 days", "120 days", "20 days"],
+    "answer": "120 days"
+  },
+  {
+    "id": 51,
+    "question": "P and Q can do a project in 12 and 12 days respectively. In how many days can they complete 50% of the project if they work together?",
+    "options": ["6 days", "3 days", "18 days", "1.5 days"],
+    "answer": "3 days"
+  },
+  {
+    "id": 52,
+    "question": "A certain number of men complete a piece of work in 60 days. If there were 8 men more, the work can be finished in 10 days less. The number of men originally is :",
+    "options": ["36", "40", "30", "32"],
+    "answer": "32"
+  },
+  {
+    "id": 53,
+    "question": "A and B together can complete a work in 30 days. They started together but after 6 days A left the work and the work is completed by B after 36 more days. A alone can complete the entire work in how many days?",
+    "options": ["45", "90", "60", "120"],
+    "answer": "90"
+  },
+  {
+    "id": 54,
+    "question": "A can do a piece of work in 6 days working 8 hours a day while B can do the same work in 4 days working 10 hours a day. If the work has to be completed in 5 days, so how many hours do they need to work together in a day?",
+    "options": [
+      "4",
+      "$5 \\frac{4}{11}$",
+      "$6 \\frac{4}{11}$",
+      "$4 \\frac{4}{11}$"
+    ],
+    "answer": "$4 \\frac{4}{11}$"
+  },
+  {
+    "id": 55,
+    "question": "M is thrice as good as workman as N and together they finish a piece of work in 30 days. In how many days will M alone finish the work?",
+    "options": ["50", "40", "60", "45"],
+    "answer": "40"
+  },
+  {
+    "id": 56,
+    "question": "A, B and C can do a job working alone in 6, 9 and 18 days respectively. They all work together for 1 day, then A and B quit. How many days C working alone will take to complete the remainder of the job?",
+    "options": ["9", "6", "12", "10"],
+    "answer": "9"
+  },
+  {
+    "id": 57,
+    "question": "Working together A and B can do a job in 40 days, B and C in 36 days and all three together in 24 days. In how many days can B alone do the job?",
+    "options": ["60", "90", "72", "120"],
+    "answer": "90"
+  },
+  {
+    "id": 58,
+    "question": "Rohan and Mohit together can build a wall in 8 days. Mohit and Vikas can build the same wall in 10 days and Vikas and Rohan can build the same wall in 12 days. In how many days can all the three complete the same wall while working together?",
+    "options": [
+      "$\\frac{240}{37}$",
+      "$\\frac{120}{37}$",
+      "$\\frac{150}{37}$",
+      "$\\frac{180}{37}$"
+    ],
+    "answer": "$\\frac{240}{37}$"
+  },
+  {
+    "id": 59,
+    "question": "Aman and Raman together can complete a piece of work in 30 days, Raman and Manan can complete the same work in 36 days and Manan and Aman can complete the same work in 45 days. All of the three working together can complete the same work in how many days?",
+    "options": ["12", "18", "24", "28"],
+    "answer": "24"
+  },
+  {
+    "id": 60,
+    "question": "24 women can complete a work in 45 days. If 18 women are employed, then in how many days the work would be completed?",
+    "options": ["60", "70", "85", "75"],
+    "answer": "60"
+  },
+  {
+    "id": 61,
+    "question": "A and B together can complete a work in 15 days. They started together but after 5 days A left the work. If the remaining work is completed by B in 15 more days, then A alone can complete the entire work in how many days?",
+    "options": ["25", "50", "35", "45"],
+    "answer": "25"
+  },
+  {
+    "id": 62,
+    "question": "Working 15 hours a day, Goldy can complete a piece of work in 24 days. How many hours a day he should work so as to finish the work in 18 days?",
+    "options": ["20", "16", "18", "8"],
+    "answer": "20"
+  },
+  {
+    "id": 63,
+    "question": "X alone can do a work in 10 days. Y alone can do the same in 15 days. X, Y and Z together can do the same work in 3 days. In how many days can Z alone do the work?",
+    "options": ["6", "9", "4", "10"],
+    "answer": "6"
+  },
+  {
+    "id": 64,
+    "question": "Suraj and Ratan together can do a work in 12 days. Suraj alone can do the work in 16 days. In how many days can Ratan alone do the work?",
+    "options": ["60", "48", "32", "36"],
+    "answer": "48"
+  },
+  {
+    "id": 65,
+    "question": "Ram and Shyam together can finish a job in 8 days. Ram can finish the same job on his own in 12 days. How long will Shyam alone take to finish that work?",
+    "options": ["16 days", "20 days", "24 days", "30 days"],
+    "answer": "24 days"
+  },
+  {
+    "id": 66,
+    "question": "Two persons can complete a piece of work in 9 days. How many more persons are needed to complete double the work in 12 days?",
+    "options": ["3", "2", "4", "1"],
+    "answer": "1"
+  },
+  {
+    "id": 67,
+    "question": "A can paint a house in 55 days and B can do it in 66 days. Along with C, they did the job in 12 days only. Then, C alone can do the job in how many days?",
+    "options": ["24", "44", "33", "20"],
+    "answer": "20"
+  },
+  {
+    "id": 68,
+    "question": "A is thrice as good a workman as B. C alone takes 48 days to paint a house. All three A, B and C working together take 16 days to paint the house. It will take how many days for B alone to paint the house?",
+    "options": ["32", "64", "96", "72"],
+    "answer": "96"
+  },
+  {
+    "id": 69,
+    "question": "Both A and B together can complete a work in 20 days and B alone can complete the same work in 36 days. In how many days will A alone complete the work?",
+    "options": ["30", "50", "45", "42"],
+    "answer": "45"
+  },
+  {
+    "id": 70,
+    "question": "x boys can do a piece of work in 24 days. In how much time (in days), 2x boys will do half of the work?",
+    "options": ["6", "12", "18", "8"],
+    "answer": "6"
+  },
+  {
+    "id": 71,
+    "question": "Some masons promised to do a work in 10 days but 8 of them were absent and remaining did the work in 18 days. What was the original number of masons?",
+    "options": ["10", "21", "15", "18"],
+    "answer": "18"
+  },
+  {
+    "id": 72,
+    "question": "If 8 men can do a piece of work in 14 days, then in how much time (in days) will 7 men do the same piece of work?",
+    "options": ["16", "15", "17", "18"],
+    "answer": "16"
+  },
+  {
+    "id": 73,
+    "question": "P, Q and R alone can complete a work in 12, 15 and 20 days respectively. In how many days will they together complete the same work?",
+    "options": ["4", "5", "6", "3.5"],
+    "answer": "5"
+  },
+  {
+    "id": 74,
+    "question": "Working 9 hours a day, Manish can read a book in 16 days. How many hours a day should he work so as to finish the same work in 24 days?",
+    "options": ["5", "7", "8", "6"],
+    "answer": "6"
+  },
+  {
+    "id": 75,
+    "question": "20 boys do one fourth of work in 25 days. How many more boys will be required to complete the remaining work in 50 days?",
+    "options": ["8", "10", "15", "20"],
+    "answer": "10"
+  },
+  {
+    "id": 76,
+    "question": "A can do a certain work in the same time as B and C together can do. If A and B together can do the work in 8 days and C alone can do the same work in 40 days, in how many days will B alone do the same work ?",
+    "options": ["25 days", "30 days", "20 days", "15 days"],
+    "answer": "20 days"
+  },
+  {
+    "id": 77,
+    "question": "Raju and Vinod are working on an assignment. Raju takes 8 hours to type 32 pages on computer while Vinod takes 6 hours to type 44 pages. What time will they take working together to type an assignment of 102 pages on two separate computers ?",
+    "options": ["10 hours", "14 hours", "9 hours", "12 hours"],
+    "answer": "9 hours"
+  },
+  {
+    "id": 78,
+    "question": "If 10 men working for 6 hours per day can complete a piece of work in 90 days, in how many days will 6 men working for 15 hours per day complete the same piece of work ?",
+    "options": ["30 days", "20 days", "60 days", "40 days"],
+    "answer": "60 days"
+  },
+  {
+    "id": 79,
+    "question": "24 persons working 8 hours a day can complete 2 units of a work in 10 days. How many persons are required to complete 4 units of that work, if they work 6 hours a day for 16 days ?",
+    "options": ["48", "36", "40", "32"],
+    "answer": "40"
+  },
+  {
+    "id": 80,
+    "question": "18 persons working 8 hours a day can complete 3 units of works in 10 days. How many persons are required to complete 5 units of that work in 16 days working 6 hours a day?",
+    "options": ["25", "15", "20", "9"],
+    "answer": "25"
+  },
+  {
+    "id": 81,
+    "question": "To do a certain work, A and B work on alternate days, with B beginning the work on the first day. A can finish the work alone in 48 days. If the work gets completed in $11\\frac{1}{3}$ days, then B alone can finish 4 times the same work in:",
+    "options": ["24 days", "32 days", "27 days", "30 days"],
+    "answer": "27 days"
+  },
+  {
+    "id": 82,
+    "question": "A is as efficient as B and C together. Working together A and B can complete a work in 36 days and C alone can complete it in 60 days. A and C work together for 10 days. B alone will complete the remaining work in :",
+    "options": ["110 days", "88 days", "84 days", "90 days"],
+    "answer": "90 days"
+  },
+  {
+    "id": 83,
+    "question": "A and B can complete a task in 25 days. B alone can complete $33\\frac{1}{3}\\%$ of the same task in 15 days. In how many days can A alone complete $\\frac{4}{15}$th of the same task?",
+    "options": ["15", "10", "18", "12"],
+    "answer": "10"
+  },
+  {
+    "id": 84,
+    "question": "If 30 persons take 10 days to complete a certain work working 8 hours a day, then 40 persons should work how many hours a day so that the work is completed in 6 days ?",
+    "options": ["6", "10", "8", "12"],
+    "answer": "10"
+  },
+  {
+    "id": 85,
+    "question": "A, B and C can finish a task in 42 days, 84 days and 28 days, respectively. A started the work. B joined him after 3 days. If C joined them after 5 days from the beginning, then for many days did A work till the completion of the task?",
+    "options": ["20", "15", "17", "18"],
+    "answer": "20"
+  },
+  {
+    "id": 86,
+    "question": "A and B, working together, can complete a work in 16 days, C and A together can complete it in 32 days, B and C together can complete it in 24 days. They worked together for 12 days. In how many days will C alone complete the remaining work?",
+    "options": ["40", "36", "45", "32"],
+    "answer": "32"
+  },
+  {
+    "id": 87,
+    "question": "A and B together can do a piece of work in 10 days, B and C together can do it in 15 days while C and A together can do it in 20 days. They work together for 8 days. C alone will complete the remaining work in :",
+    "options": [
+      "12 days",
+      "$3\\frac{1}{5}$ days",
+      "16 days",
+      "$5\\frac{1}{3}$ days"
+    ],
+    "answer": "16 days"
+  },
+  {
+    "id": 88,
+    "question": "18 men can complete a work in 9 days. After they have worked for 5 days, 6 more men join them, How Many days will they take to complete the remaining work?",
+    "options": ["3", "$2\\frac{1}{2}$", "2", "$3\\frac{1}{2}$"],
+    "answer": "2"
+  },
+  {
+    "id": 89,
+    "question": "A, B and C can complete a piece of work in 10, 20 and 60 days respectively. Working together, they can complete the same work in how many days?",
+    "options": ["5", "6", "10", "8"],
+    "answer": "6"
+  },
+  {
+    "id": 90,
+    "question": "A, B and C can complete a piece of work in 4, 28 and 56 days respectively. Working together, they can complete the same work in how many days?",
+    "options": [
+      "$5\\frac{5}{17}$",
+      "$3\\frac{1}{17}$",
+      "$5\\frac{1}{17}$",
+      "$3\\frac{5}{17}$"
+    ],
+    "answer": "$3\\frac{1}{17}$"
+  },
+  {
+    "id": 91,
+    "question": "A, B and C can complete a piece of work in 5, 20 and 60 days respectively. Working together, they can complete the same work in how many days?",
+    "options": [
+      "$3\\frac{1}{4}$",
+      "$3\\frac{3}{4}$",
+      "$5\\frac{1}{4}$",
+      "$5\\frac{3}{4}$"
+    ],
+    "answer": "$3\\frac{3}{4}$"
+  },
+  {
+    "id": 92,
+    "question": "A, B and C can complete a piece of work in 4, 20 and 60 days respectively. Working together, they can complete the same work in how many days?",
+    "options": [
+      "$5\\frac{3}{19}$",
+      "$3\\frac{1}{19}$",
+      "$5\\frac{1}{19}$",
+      "$3\\frac{3}{19}$"
+    ],
+    "answer": "$3\\frac{3}{19}$"
+  },
+  {
+    "id": 93,
+    "question": "A, B and C can complete a piece of work in 4, 20 and 60 days respectively. Working together, they can complete the one third of the same work in how many days?",
+    "options": [
+      "$1\\frac{3}{19}$",
+      "$1\\frac{1}{19}$",
+      "$\\frac{3}{19}$",
+      "$2\\frac{1}{19}$"
+    ],
+    "answer": "$\\frac{3}{19}$"
+  },
+  {
+    "id": 94,
+    "question": "If A, B and C can respectively complete a piece of work in 20, 24 and 36 days respectively, how many days will they take to complete the work, if they work together?",
+    "options": [
+      "$8\\frac{16}{43}$",
+      "$6\\frac{1}{4}$",
+      "$9\\frac{1}{4}$",
+      "$7\\frac{19}{20}$"
+    ],
+    "answer": "$8\\frac{16}{43}$"
+  },
+  {
+    "id": 95,
+    "question": "If 16 men working 12 hours a day can complete a work in 27 days, then working for how many hours a day can 18 men complete the work in 24 days?",
+    "options": ["9", "18", "16", "12"],
+    "answer": "12"
+  },
+  {
+    "id": 96,
+    "question": "If 40 men working 12 hours a day can complete a work in 8 days, then how many men working 4 hours a day can complete the same work in 16 days?",
+    "options": ["50", "60", "54", "45"],
+    "answer": "60"
+  },
+  {
+    "id": 97,
+    "question": "X alone can do a certain work in 15 days. Y alone can do the same work in 30 days. X, Y and Z together can do the same work in 9 days. In how many days will Z alone do the same work?",
+    "options": ["120", "90", "45", "60"],
+    "answer": "90"
+  },
+  {
+    "id": 98,
+    "question": "A alone can do a certain work in 30 days. B alone can do the same work in 60 days. If they work together for 5 days, what is the remaining part of the work?",
+    "options": [
+      "$\\frac{2}{3}$",
+      "$\\frac{1}{2}$",
+      "$\\frac{3}{4}$",
+      "$\\frac{5}{6}$"
+    ],
+    "answer": "$\\frac{3}{4}$"
+  },
+  {
+    "id": 99,
+    "question": "A man can finish a piece of work in 15 days. A women can complete the same work in 10 days. Both work together for 5 days, then the man leaves. How many days will be taken by the woman to finish the remaining work?",
+    "options": [
+      "$2\\frac{1}{2}$",
+      "$1\\frac{1}{3}$",
+      "$2\\frac{2}{3}$",
+      "$1\\frac{2}{3}$"
+    ],
+    "answer": "$1\\frac{2}{3}$"
+  },
+  {
+    "id": 100,
+    "question": "Samrat alone can complete a work in 10 days and Virat alone can complete the same work in 40 days. If they are working on alternate days with Samrat starting the work, then in how many days will the total work be completed?",
+    "options": ["14 days", "16 days", "8 days", "12 days"],
+    "answer": "14 days"
+  },
+  {
+    "id": 101,
+    "question": "E, F and G together can complete a work in 12 days. If E and F together can complete the same work in 30 days, then in how many days can G alone complete the same work?",
+    "options": ["18 days", "20 days", "12 days", "24 days"],
+    "answer": "20 days"
+  },
+  {
+    "id": 102,
+    "question": "Vishal alone can complete $\\frac{1}{3}$ part of a work in 60 days and Ashok alone can complete $\\frac{1}{4}$ part of the same work 30 days. In how many days Vishal and Ashok together can complete the same work?",
+    "options": ["64", "20", "72", "56"],
+    "answer": "72"
+  },
+  {
+    "id": 103,
+    "question": "Some persons can do a piece of work in 84 days. Two times the number of such persons will do half of the same work in how many days?",
+    "options": ["21 days", "14 days", "16 days", "15 days"],
+    "answer": "21 days"
+  },
+  {
+    "id": 104,
+    "question": "If 10 men can complete a piece of work in 12 days by working 7 hours a day, then in how many days can 14 men do the same work by working 6 hours a day?",
+    "options": ["16", "15", "10", "12"],
+    "answer": "10"
+  },
+  {
+    "id": 105,
+    "question": "A can do $\\frac{4}{5}$ th of a work in 20 days and B can do $\\frac{3}{4}$ th of the same work in 15 days. They work together for 10 days. C alone completes the remaining work in 1 day. B and C together can complete $\\frac{3}{4}$ th of the same work in:",
+    "options": ["8 days", "5 days", "4 days", "6 days"],
+    "answer": "5 days"
+  },
+  {
+    "id": 106,
+    "question": "A and B together can do a certain work in x days. Working alone, A and B can do the same work in (x + 8) and (x + 18) days respectively. A and B together will complete $\\frac{5}{6}$ th of the same work in:",
+    "options": ["9 days", "8 days", "10 days", "12 days"],
+    "answer": "10 days"
+  },
+  {
+    "id": 107,
+    "question": "A can complete one-third part of a work in 5 days, B can do two-fifth part of the same work in 10 days and C can do 75% of the same work in 15 days. They work together for 6 days. In how many days will B alone complete the remaining work ?",
+    "options": ["$1\\frac{1}{2}$ days", "2 days", "3 days", "5 days"],
+    "answer": "5 days"
+  },
+  {
+    "id": 108,
+    "question": "A and B, working together, can complete work in d days. Working alone, A takes (8 + d) days and B takes (18 + d) days to complete the same work. A works for 4 days. The remaining work will be completed by B alone, in :",
+    "options": ["20 days", "24 days", "16 days", "18 days"],
+    "answer": "18 days"
+  },
+  {
+    "id": 109,
+    "question": "To complete a certain task. X is 40% more efficient than Y and Z is 40% less efficient that Y. Working together, they can complete the task in 21 days. Y and Z together worked for 35 days. The remaining work will completed by A alone in",
+    "options": ["5 days", "8 days", "4 days", "6 days"],
+    "answer": "6 days"
+  },
+  {
+    "id": 110,
+    "question": "Sixteen men can finish a work in 8 days. Eight men and nine women working together can finish the same work in 10 days. In how many days will twenty women finish the same work ?",
+    "options": ["12", "13", "9", "11"],
+    "answer": "12"
+  },
+  {
+    "id": 111,
+    "question": "A, B and C can individually complete a task in 24 days, 20 days and 18 days respectively. B and C start the task, and they work for 6 days and leave. The number of days required by A alone to finish the remaining task is;",
+    "options": [
+      "10 days",
+      "$15\\frac{2}{3}$ days",
+      "$8\\frac{4}{5}$ days",
+      "$12\\frac{1}{2}$ days"
+    ],
+    "answer": "$10 days"
+  },
+  {
+    "id": 112,
+    "question": "Amit and Sunil together can complete a work in 9 days. Sunil and Dinesh together can complete the same work in 12 days, and Amit and Dinesh together can complete the same work in 18 days. In how many days will they complete the work if Amit, Sunil and Dinesh work together?",
+    "options": ["14 days", "16 days", "8 days", "12 days"],
+    "answer": "8 days"
+  },
+  {
+    "id": 113,
+    "question": "If 18 men can cut a field in 35 days, then in how many days can 21 men cut the same field?",
+    "options": ["32", "27", "28", "30"],
+    "answer": "30"
+  },
+  {
+    "id": 114,
+    "question": "A can do a piece of work in 6 days. B can do it in 9 days. With the assistance of C they completed the work in 3 days. In how many days can C alone do the work?",
+    "options": ["18", "12", "16", "8"],
+    "answer": "18"
+  },
+  {
+    "id": 115,
+    "question": "X and Y together can finish a piece of work in 15 days, while Y alone can finish it in 40 days. X alone can finish the work in :",
+    "options": ["24 days", "26 days", "25 days", "23 days"],
+    "answer": "24 days"
+  },
+  {
+    "id": 116,
+    "question": "Ravi, Mohan and Govind separately complete a task in 12 days, 10 days and 15 days, respectively. In how many days can Ravi, Mohan and Govind together complete the same task?",
+    "options": ["8", "4", "2", "6"],
+    "answer": "4"
+  },
+  {
+    "id": 117,
+    "question": "A can do 20% of a work in 4 days, B can do $33\\frac{1}{3}\\%$ of the same work in 10 days. They worked together for 9 days. C completed the remaining work in 6 days B and C together will complete 75% of the same work in :",
+    "options": ["9 days", "15 days", "10 days", "12 days"],
+    "answer": "12 days"
+  },
+  {
+    "id": 118,
+    "question": "A can do $\\frac{1}{3}$ of a work in 30 days. B can do $\\frac{2}{5}$ of the same work in 24 days. They worked together for 20 days. C completed the remaining work in 8 days. Working together A, B and C will complete the same work in :",
+    "options": ["15 days", "10 days", "18 days", "12 days"],
+    "answer": "12 days"
+  },
+  {
+    "id": 119,
+    "question": "A and B together can do a piece of work in 12 days. A alone can do it in 18 days. In how many days B alone can do the work?",
+    "options": ["36 days", "24 days", "32 days", "30 days"],
+    "answer": "36 days"
+  },
+  {
+    "id": 120,
+    "question": "A is twice as good a workman as B and together they finish a piece of work in 13 days. In how many days will B alone finish the work?",
+    "options": ["18.5", "21", "39", "42"],
+    "answer": "39"
+  },
+  {
+    "id": 121,
+    "question": "A and B can do a job in 10 days and 5 days, respectively. They worked together for two days, after which B was replaced by C and the work was finished in the next three days. How long will C alone take to finish 60% of the job?",
+    "options": ["30 days", "25 days", "18 days", "24 days"],
+    "answer": "24 days"
+  },
+  {
+    "id": 122,
+    "question": "A and B can do a piece of work in 25 days. B alone can do $66\\frac{2}{3}\\%$ of the same work in 30 days. In how many days can A alone do $\\frac{4}{15}$ part of the same work ?",
+    "options": ["15", "20", "18", "12"],
+    "answer": "15"
+  },
+  {
+    "id": 123,
+    "question": "A and B can do a place of word in 36 days B and C can do the same work in 60 days. A and C can do the same work in 45 days. In how many days can B alone complete the same work?",
+    "options": ["90", "60", "120", "45"],
+    "answer": "90"
+  },
+  {
+    "id": 124,
+    "question": "A can do $33\\frac{1}{3}\\%$ of a work in 10 days and B can do $66\\frac{2}{3}\\%$ of the same work in 8 days. Both worked together for 8 days. C alone completed the remaining work in 3 days. A and C together will complete $\\frac{5}{6}$ part of the original work in :",
+    "options": ["18 days", "20 days", "12 days", "15 days"],
+    "answer": "15 days"
+  },
+  {
+    "id": 125,
+    "question": "25 women can do a piece of work in 60 days. After how many days from the start of the work should 15 more women join them so that the work is done in 45 days ?",
+    "options": ["20", "15", "25", "18"],
+    "answer": "18"
+  },
+  {
+    "id": 126,
+    "question": "A, B and C together can complete a work in x, 30 and 45 days, respectively. B and C worked together for 6 days. The remaining work was completed by A alone in 12 days. The value of x is.",
+    "options": ["18", "20", "24", "15"],
+    "answer": "20"
+  },
+  {
+    "id": 127,
+    "question": "40 persons take 6 days to complete a certain task, working 10 hours a day. How many hours a day will be sufficient for 30 persons to complete the same task in 10 days?",
+    "options": ["9", "8", "10", "6"],
+    "answer": "8"
+  },
+  {
+    "id": 128,
+    "question": "To do a certain work, A and B work on alternate days with B beginning the work on the first day. A alone can complete the same work in 24 days. If the work gets completed in $11\\frac{1}{3}$ days, then B alone can complete $\\frac{7}{9}$ th part of the original work in :",
+    "options": [
+      "$5\\frac{1}{2}$ days",
+      "4 days",
+      "$4\\frac{1}{2}$ days",
+      "6 days"
+    ],
+    "answer": "6 days"
+  },
+  {
+    "id": 129,
+    "question": "Two men and 7 women can complete a work in 28 days whereas 6 men and 16 women can do the same work in 11 days. In how many days can 7 men complete the same work ?",
+    "options": ["12", "11", "24", "22"],
+    "answer": "22"
+  },
+  {
+    "id": 130,
+    "question": "Fourteen persons can do a work in 18 days. After 5 days of work, 6 workers left the work and joined back on the last day of the work. In how many days the work got completed.",
+    "options": ["24", "12", "21", "27"],
+    "answer": "21"
+  }
+]
