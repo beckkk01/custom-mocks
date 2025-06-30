@@ -37,8 +37,8 @@ const Question = ({ question, options, handleAnswer }) => {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-3 sm:p-4">
-      <div className="bg-white rounded-lg p-4 sm:p-6 shadow-md border border-gray-200">
+    <div className="w-full max-w-4xl mx-auto p-1 sm:p-4">
+      <div className="bg-white rounded-lg p-3 sm:p-6 shadow-md border border-gray-200">
         {/* Question */}
         <div className="mb-4 sm:mb-5">
           <p className="text-base sm:text-lg font-medium text-gray-900 leading-relaxed">
@@ -59,7 +59,7 @@ const Question = ({ question, options, handleAnswer }) => {
                   w-full
                   ${
                     isSelected
-                      ? "bg-green-100 border-green-500 text-green-900 font-semibold shadow-sm"
+                      ? "bg-green-100 border-green-500 text-green-900"
                       : "bg-gray-50 border-gray-200 hover:bg-green-50"
                   }
                 `}

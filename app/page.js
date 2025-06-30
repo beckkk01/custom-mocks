@@ -7,14 +7,15 @@ import {
   deleteDoc,
   doc,
   addDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useRouter } from "next/navigation";
-import JsonUpload from "../app/components/JsonUpload";
-import UpcomingRevisions from "../app/components/UpcomingRevisions";
-import QuestionSets from "../app/components/QuestionSets";
-import FrequencyModal from "../app/components/FrequencyModal";
-import PasswordModal from "../app/components/PasswordModal";
+import JsonUpload from "@/app/components/JsonUpload";
+import UpcomingRevisions from "@/app/components/UpcomingRevisions";
+import QuestionSets from "@/app/components/QuestionSets";
+import FrequencyModal from "@/app/components/FrequencyModal";
+import PasswordModal from "@/app/components/PasswordModal";
 
 const Home = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const Home = () => {
     subject: "",
     topic: "",
     remark: "",
+    sortBy: "newest", // Default sort by newest
   });
   const [filteredSets, setFilteredSets] = useState([]);
   const [subjects, setSubjects] = useState([]);
@@ -47,16 +49,22 @@ const Home = () => {
         const data = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
+          revisionCycleCount: doc.data().revisionCycleCount || 0,
+          createdAt: doc.data().createdAt
+            ? doc.data().createdAt.toDate()
+            : new Date(), // Convert Firestore timestamp to JS Date
         }));
-        setSets(data);
-        setFilteredSets(data);
+        // Sort by newest first by default
+        const sortedData = data.sort((a, b) => b.createdAt - a.createdAt);
+        setSets(sortedData);
+        setFilteredSets(sortedData);
 
         const uniqueSubjects = [
-          ...new Set(data.map((set) => set.subject)),
+          ...new Set(sortedData.map((set) => set.subject)),
         ].filter(Boolean);
         setSubjects(uniqueSubjects);
 
-        updateTopics(data, filter.subject);
+        updateTopics(sortedData, filter.subject);
 
         // Fetch spaced revisions and filter out expired ones
         const revisionSnapshot = await getDocs(
@@ -98,31 +106,6 @@ const Home = () => {
     if (selectedSubject && !filteredTopics.includes(filter.topic)) {
       setFilter((prev) => ({ ...prev, topic: "" }));
     }
-  };
-
-  const handleFilterChange = (field, value) => {
-    const newFilter = { ...filter, [field]: value };
-    setFilter(newFilter);
-
-    if (field === "subject") {
-      updateTopics(sets, value);
-    }
-
-    setFilteredSets(
-      sets.filter(
-        (set) =>
-          (!newFilter.name ||
-            set.name.toLowerCase().includes(newFilter.name.toLowerCase())) &&
-          (!newFilter.subject ||
-            set.subject
-              .toLowerCase()
-              .includes(newFilter.subject.toLowerCase())) &&
-          (!newFilter.topic ||
-            set.topic?.toLowerCase().includes(newFilter.topic.toLowerCase())) &&
-          (!newFilter.remark ||
-            set.remark.toLowerCase().includes(newFilter.remark.toLowerCase()))
-      )
-    );
   };
 
   const startTestWithQuestions = (questions) => {
@@ -170,9 +153,14 @@ const Home = () => {
       if (deleteSetId) {
         await deleteDoc(doc(db, "savedQuestions", deleteSetId));
         const updatedSets = sets.filter((set) => set.id !== deleteSetId);
-        setSets(updatedSets);
-        setFilteredSets(updatedSets);
-        updateTopics(updatedSets, filter.subject);
+        const sortedUpdatedSets = updatedSets.sort((a, b) =>
+          filter.sortBy === "newest"
+            ? b.createdAt - a.createdAt
+            : a.createdAt - b.createdAt
+        );
+        setSets(sortedUpdatedSets);
+        setFilteredSets(sortedUpdatedSets);
+        updateTopics(sortedUpdatedSets, filter.subject);
       } else if (spacedRevisionSetId) {
         const set = sets.find((s) => s.id === spacedRevisionSetId);
         if (set) {
@@ -228,6 +216,40 @@ const Home = () => {
         .find((doc) => doc.id === questionSetId)
         ?.data();
       if (questionSet?.questions) {
+        // Increment revisionCycleCount
+        const setRef = doc(db, "savedQuestions", questionSetId);
+        const currentCount = questionSet.revisionCycleCount || 0;
+        await updateDoc(setRef, {
+          revisionCycleCount: currentCount + 1,
+        });
+
+        // Update local state
+        const updatedSets = sets.map((set) =>
+          set.id === questionSetId
+            ? { ...set, revisionCycleCount: currentCount + 1 }
+            : set
+        );
+        setSets(
+          updatedSets.sort((a, b) =>
+            filter.sortBy === "newest"
+              ? b.createdAt - a.createdAt
+              : a.createdAt - b.createdAt
+          )
+        );
+        setFilteredSets((prev) =>
+          prev
+            .map((set) =>
+              set.id === questionSetId
+                ? { ...set, revisionCycleCount: currentCount + 1 }
+                : set
+            )
+            .sort((a, b) =>
+              filter.sortBy === "newest"
+                ? b.createdAt - a.createdAt
+                : a.createdAt - b.createdAt
+            )
+        );
+
         startTestWithQuestions(questionSet.questions);
       } else {
         alert("Question set not found.");
@@ -239,12 +261,13 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen py-8 px-1 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-          Mock Test Dashboard
+          Beckkk's Dashboard
         </h1>
         <JsonUpload onTextUpload={startTestWithQuestions} />
+
         <UpcomingRevisions
           revisions={upcomingRevisions}
           sets={sets}
@@ -256,7 +279,6 @@ const Home = () => {
           subjects={subjects}
           topics={topics}
           filter={filter}
-          onFilterChange={handleFilterChange}
           onStartTest={startTestWithQuestions}
           onScheduleRevision={handleSpacedRevision}
           onDelete={handleDelete}

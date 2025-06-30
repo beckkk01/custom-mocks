@@ -21,6 +21,7 @@ const FrequencyModal = ({
           >
             <option value="1,3,5,7,21">1,3,5,7,21 days</option>
             <option value="1,5,11,21">1,5,11,21 days</option>
+            <option value="0,1">0,1 days</option>
           </select>
           <div className="mt-4 flex gap-3 justify-end">
             <button

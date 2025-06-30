@@ -62,20 +62,22 @@ const TestPage = () => {
 
   if (!ready) {
     return (
-      <div className="p-10 text-center">
-        <h2 className="text-2xl mb-4">Ready to Start?</h2>
-        <label className="mr-4">
+      <div className="flex flex-col items-center justify-center h-[70vh] text-center">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+          Ready to Begin the Test?
+        </h2>
+        <label className="inline-flex items-center mb-4 text-gray-700 text-sm">
           <input
             type="checkbox"
             checked={shuffle}
             onChange={() => setShuffle(!shuffle)}
+            className="mr-2"
           />
           Shuffle Questions
         </label>
-        <br />
         <button
           onClick={() => setReady(true)}
-          className="mt-4 px-6 py-3 bg-green-600 text-white rounded hover:bg-green-700"
+          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm font-medium"
         >
           Start Test
         </button>
@@ -83,18 +85,33 @@ const TestPage = () => {
     );
   }
 
-  if (isFinished) return <p className="text-center mt-10">Test Completed.</p>;
+  if (isFinished) {
+    return (
+      <div className="text-center mt-20 text-lg text-gray-700">
+        Test Completed.
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="flex justify-between text-sm text-gray-600 mb-4">
-        <div>Total Time: {mainTimer}s</div>
-        <div>Question Time: {questionTimer}s</div>
-        <div>
-          Question: {current + 1}/{questions.length}
-        </div>
+    <div className="max-w-3xl mx-auto px-4 py-6 mt-3">
+      {/* Test Header */}
+      <div className="flex justify-between items-center mb-4 text-sm text-gray-600 border-b pb-2">
+        <span>
+          Total Time:{" "}
+          <span className="font-medium text-gray-800">{mainTimer}s</span>
+        </span>
+        <span>
+          Question Time:{" "}
+          <span className="font-medium text-gray-800">{questionTimer}s</span>
+        </span>
+        <span>
+          Q: <span className="font-medium text-gray-800">{current + 1}</span> /{" "}
+          {questions.length}
+        </span>
       </div>
 
+      {/* Question Component */}
       <Question
         question={questions[current]?.question}
         options={questions[current]?.options}
@@ -102,30 +119,30 @@ const TestPage = () => {
         selected={selectedAnswers[current]?.answer}
       />
 
-      <div className="mt-6 flex justify-between items-center">
+      {/* Navigation Buttons */}
+      <div className="mt-6 flex justify-between items-center gap-2">
+        <button
+          onClick={finishTest}
+          className="px-5 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+        >
+          Quit & Submit
+        </button>
+
         {current + 1 < questions.length ? (
           <button
             onClick={nextQuestion}
-            className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-6 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Submit & Next
           </button>
         ) : (
           <button
             onClick={finishTest}
-            className="px-6 py-3 bg-red-500 text-white rounded hover:bg-red-600"
+            className="px-6 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700"
           >
             Finish Test
           </button>
         )}
-
-        {/* Always-visible finish button */}
-        <button
-          onClick={finishTest}
-          className="px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
-        >
-          Finish Anytime
-        </button>
       </div>
     </div>
   );

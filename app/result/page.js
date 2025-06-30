@@ -1,11 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Latex from "react-latex-next";
 import "katex/dist/katex.min.css";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 
 const Result = () => {
+  const router = useRouter();
   const [questionsData, setQuestionsData] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [totalTime, setTotalTime] = useState(0);
@@ -288,6 +290,13 @@ const Result = () => {
         >
           {showSaveForm ? "Close" : "Save to Firebase"}
         </button>
+
+        <button
+          onClick={() => router.push("/")}
+          className="ml-4 px-3 sm:px-4 py-1 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 transition-all duration-200 text-xs sm:text-sm"
+        >
+          Back To Home
+        </button>
       </div>
 
       {showSaveForm && (
@@ -438,7 +447,7 @@ const Result = () => {
             className="mb-4 bg-white shadow-md rounded-lg p-3 sm:p-4 border border-gray-200"
           >
             <p className="text-sm sm:text-base font-medium text-gray-900 mb-2">
-              {index + 1}. <Latex>{q.question}</Latex>
+              {q.id}. <Latex>{q.question}</Latex>
             </p>
             <div className="flex justify-between items-center mb-2">
               <p
