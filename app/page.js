@@ -1,370 +1,292 @@
+// components/Home.jsx
 "use client";
 import React, { useState, useEffect } from "react";
-import Question from "../app/components/Questions";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  addDoc,
+} from "firebase/firestore";
+import { db } from "../lib/firebase";
+import { useRouter } from "next/navigation";
+import JsonUpload from "../app/components/JsonUpload";
+import UpcomingRevisions from "../app/components/UpcomingRevisions";
+import QuestionSets from "../app/components/QuestionSets";
+import FrequencyModal from "../app/components/FrequencyModal";
+import PasswordModal from "../app/components/PasswordModal";
 
 const Home = () => {
-  const [questions, setQuestions] = useState([]);
-  const [originalQuestions, setOriginalQuestions] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState([]);
-  const [mainTimer, setMainTimer] = useState(0);
-  const [questionTimer, setQuestionTimer] = useState(0);
-  const [questionTimes, setQuestionTimes] = useState([]);
-  const [questionStartTime, setQuestionStartTime] = useState(0);
-  const [isFinished, setIsFinished] = useState(false);
-  const [testStarted, setTestStarted] = useState(false);
-  const [currentAnswer, setCurrentAnswer] = useState(null);
-  const [formattedTime, setFormattedTime] = useState("00:00");
-  const [fileName, setFileName] = useState(null);
-  const [shouldShuffle, setShouldShuffle] = useState(true);
+  const router = useRouter();
+  const [sets, setSets] = useState([]);
+  const [filter, setFilter] = useState({
+    name: "",
+    subject: "",
+    topic: "",
+    remark: "",
+  });
+  const [filteredSets, setFilteredSets] = useState([]);
+  const [subjects, setSubjects] = useState([]);
+  const [topics, setTopics] = useState([]);
+  const [upcomingRevisions, setUpcomingRevisions] = useState([]);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [deleteSetId, setDeleteSetId] = useState(null);
+  const [spacedRevisionSetId, setSpacedRevisionSetId] = useState(null);
+  const [stopRevisionId, setStopRevisionId] = useState(null);
+  const [showFrequencyModal, setShowFrequencyModal] = useState(false);
+  const [spacedRevisionFrequency, setSpacedRevisionFrequency] =
+    useState("1,3,5,7,21");
 
-  const shuffleArray = (array) => {
-    return array
-      .map((value) => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value);
-  };
-
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    if (file) {
-      setFileName(file.name);
-    }
-
-    reader.onload = (e) => {
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        const uploadedQuestions = JSON.parse(e.target.result);
+        // Fetch saved question sets
+        const snapshot = await getDocs(collection(db, "savedQuestions"));
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setSets(data);
+        setFilteredSets(data);
 
-        // Store original questions
-        setOriginalQuestions(uploadedQuestions);
+        const uniqueSubjects = [
+          ...new Set(data.map((set) => set.subject)),
+        ].filter(Boolean);
+        setSubjects(uniqueSubjects);
 
-        // Apply shuffling based on current preference
-        setQuestions(
-          shouldShuffle ? shuffleArray(uploadedQuestions) : uploadedQuestions
+        updateTopics(data, filter.subject);
+
+        // Fetch spaced revisions and filter out expired ones
+        const revisionSnapshot = await getDocs(
+          collection(db, "SpacedRevision")
         );
+        const revisionData = [];
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-        localStorage.setItem(
-          "uploadedQuestions",
-          JSON.stringify(uploadedQuestions)
-        );
+        for (const doc of revisionSnapshot.docs) {
+          const revision = { id: doc.id, ...doc.data() };
+          const hasValidDates = revision.revisionDates.some(
+            (date) => new Date(date) >= today
+          );
+          if (hasValidDates) {
+            revisionData.push(revision);
+          } else {
+            await deleteDoc(doc(db, "SpacedRevision", doc.id));
+          }
+        }
+        setUpcomingRevisions(revisionData);
       } catch (error) {
-        console.error("Invalid JSON file:", error);
+        console.error("Error fetching data:", error);
       }
     };
+    fetchData();
+  }, []);
 
-    if (file) {
-      reader.readAsText(file);
-    }
-  };
-
-  // Add a useEffect to handle shuffling when shouldShuffle changes
-  useEffect(() => {
-    if (originalQuestions.length > 0) {
-      setQuestions(
-        shouldShuffle ? shuffleArray(originalQuestions) : [...originalQuestions]
-      );
-    }
-  }, [shouldShuffle, originalQuestions]);
-
-  const goFullscreen = () => {
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen();
-    } else if (document.documentElement.webkitRequestFullscreen) {
-      document.documentElement.webkitRequestFullscreen();
-    } else if (document.documentElement.mozRequestFullScreen) {
-      document.documentElement.mozRequestFullScreen();
-    } else if (document.documentElement.msRequestFullscreen) {
-      document.documentElement.msRequestFullscreen();
-    }
-  };
-
-  const startTest = () => {
-    setTestStarted(true);
-    setQuestionStartTime(0);
-    setQuestionTimer(0);
-    setMainTimer(0);
-    setFormattedTime("00:00");
-    goFullscreen();
-
-    const timerInterval = setInterval(() => {
-      setMainTimer((prevTime) => {
-        const newTime = prevTime + 1;
-        const hours = Math.floor(newTime / 3600);
-        const minutes = Math.floor((newTime % 3600) / 60);
-        const seconds = newTime % 60;
-
-        const formattedTime = `${hours > 0 ? `${hours}:` : ""}${
-          minutes < 10 ? "0" : ""
-        }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-
-        setFormattedTime(formattedTime);
-        return newTime;
-      });
-    }, 1000);
-
-    window.timerInterval = timerInterval;
-  };
-
-  const submitAndNext = () => {
-    const timeSpent = questionTimer;
-    const currentQuestionData = questions[currentQuestion];
-
-    const updatedAnswers = [
-      ...selectedAnswers,
-      {
-        questionId: currentQuestionData.id,
-        answer: currentAnswer,
-      },
+  const updateTopics = (data, selectedSubject) => {
+    const filteredTopics = [
+      ...new Set(
+        data
+          .filter((set) => !selectedSubject || set.subject === selectedSubject)
+          .map((set) => set.topic)
+          .filter(Boolean)
+      ),
     ];
-
-    setSelectedAnswers(updatedAnswers);
-    setQuestionTimes([...questionTimes, timeSpent]);
-
-    localStorage.setItem("selectedAnswers", JSON.stringify(updatedAnswers));
-
-    if (currentQuestion + 1 < questions.length) {
-      setCurrentQuestion(currentQuestion + 1);
-      setQuestionStartTime(mainTimer);
-      setCurrentAnswer(null);
-      setQuestionTimer(0);
-    } else {
-      setIsFinished(true);
-      clearInterval(window.timerInterval);
+    setTopics(filteredTopics);
+    if (selectedSubject && !filteredTopics.includes(filter.topic)) {
+      setFilter((prev) => ({ ...prev, topic: "" }));
     }
   };
 
-  const skipQuestion = () => {
-    const timeSpent = questionTimer;
-    const updatedAnswers = [
-      ...selectedAnswers,
-      {
-        questionId: questions[currentQuestion].id,
-        answer: null,
-      },
-    ];
+  const handleFilterChange = (field, value) => {
+    const newFilter = { ...filter, [field]: value };
+    setFilter(newFilter);
 
-    setSelectedAnswers(updatedAnswers);
-    setQuestionTimes([...questionTimes, timeSpent]);
+    if (field === "subject") {
+      updateTopics(sets, value);
+    }
 
-    localStorage.setItem("selectedAnswers", JSON.stringify(updatedAnswers));
+    setFilteredSets(
+      sets.filter(
+        (set) =>
+          (!newFilter.name ||
+            set.name.toLowerCase().includes(newFilter.name.toLowerCase())) &&
+          (!newFilter.subject ||
+            set.subject
+              .toLowerCase()
+              .includes(newFilter.subject.toLowerCase())) &&
+          (!newFilter.topic ||
+            set.topic?.toLowerCase().includes(newFilter.topic.toLowerCase())) &&
+          (!newFilter.remark ||
+            set.remark.toLowerCase().includes(newFilter.remark.toLowerCase()))
+      )
+    );
+  };
 
-    if (currentQuestion + 1 < questions.length) {
-      setCurrentQuestion(currentQuestion + 1);
-      setQuestionStartTime(mainTimer);
-      setCurrentAnswer(null);
-      setQuestionTimer(0);
-    } else {
-      setIsFinished(true);
-      clearInterval(window.timerInterval);
+  const startTestWithQuestions = (questions) => {
+    localStorage.setItem("uploadedQuestions", JSON.stringify(questions));
+    router.push("/test");
+  };
+
+  const handleDelete = (id) => {
+    setDeleteSetId(id);
+    setShowPasswordModal(true);
+    setPasswordInput("");
+    setPasswordError("");
+  };
+
+  const handleSpacedRevision = (id) => {
+    setSpacedRevisionSetId(id);
+    setShowFrequencyModal(true);
+    setPasswordInput("");
+    setPasswordError("");
+  };
+
+  const handleStopRevision = (revisionId) => {
+    setStopRevisionId(revisionId);
+    setShowPasswordModal(true);
+    setPasswordInput("");
+    setPasswordError("");
+  };
+
+  const handleFrequencySubmit = (e) => {
+    e.preventDefault();
+    setShowFrequencyModal(false);
+    setShowPasswordModal(true);
+    setPasswordInput("");
+    setPasswordError("");
+  };
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    if (passwordInput !== process.env.NEXT_PUBLIC_FIREBASE_ACTION_PASSWORD) {
+      setPasswordError("Incorrect password");
+      return;
+    }
+
+    try {
+      if (deleteSetId) {
+        await deleteDoc(doc(db, "savedQuestions", deleteSetId));
+        const updatedSets = sets.filter((set) => set.id !== deleteSetId);
+        setSets(updatedSets);
+        setFilteredSets(updatedSets);
+        updateTopics(updatedSets, filter.subject);
+      } else if (spacedRevisionSetId) {
+        const set = sets.find((s) => s.id === spacedRevisionSetId);
+        if (set) {
+          const frequencyDays = spacedRevisionFrequency.split(",").map(Number);
+          const today = new Date();
+          const revisionDates = frequencyDays.map((day) => {
+            const date = new Date(today);
+            date.setDate(today.getDate() + day);
+            return date.toISOString().split("T")[0];
+          });
+
+          const docRef = await addDoc(collection(db, "SpacedRevision"), {
+            questionSetId: spacedRevisionSetId,
+            revisionDates,
+            createdAt: new Date(),
+          });
+
+          setUpcomingRevisions((prev) => [
+            ...prev,
+            {
+              id: docRef.id,
+              questionSetId: spacedRevisionSetId,
+              revisionDates,
+              createdAt: new Date(),
+            },
+          ]);
+
+          alert("Spaced Revision scheduled successfully!");
+        }
+      } else if (stopRevisionId) {
+        await deleteDoc(doc(db, "SpacedRevision", stopRevisionId));
+        setUpcomingRevisions((prev) =>
+          prev.filter((rev) => rev.id !== stopRevisionId)
+        );
+        alert("Spaced Revision stopped successfully!");
+      }
+      setShowPasswordModal(false);
+      setPasswordInput("");
+      setPasswordError("");
+      setDeleteSetId(null);
+      setSpacedRevisionSetId(null);
+      setStopRevisionId(null);
+    } catch (error) {
+      console.error("Error performing action:", error);
+      alert("Failed to perform action.");
     }
   };
 
-  const handleFinish = () => {
-    clearInterval(window.timerInterval);
-
-    localStorage.setItem("selectedAnswers", JSON.stringify(selectedAnswers));
-    localStorage.setItem("questionTimes", JSON.stringify(questionTimes));
-    localStorage.setItem("totalTime", mainTimer);
-
-    window.location.href = `/result`;
-  };
-
-  const handleQuestionTimer = () => {
-    setQuestionTimer((prev) => prev + 1);
-  };
-
-  useEffect(() => {
-    if (testStarted && !isFinished) {
-      const questionTimerInterval = setInterval(handleQuestionTimer, 1000);
-      return () => clearInterval(questionTimerInterval);
+  const handleStartRevision = async (revisionId, questionSetId) => {
+    try {
+      const questionSetDoc = await getDocs(collection(db, "savedQuestions"));
+      const questionSet = questionSetDoc.docs
+        .find((doc) => doc.id === questionSetId)
+        ?.data();
+      if (questionSet?.questions) {
+        startTestWithQuestions(questionSet.questions);
+      } else {
+        alert("Question set not found.");
+      }
+    } catch (error) {
+      console.error("Error fetching questions for revision:", error);
+      alert("Failed to start revision.");
     }
-  }, [testStarted, isFinished]);
+  };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="w-full max-w-4xl">
-        {!testStarted ? (
-          <div className="bg-white shadow-2xl rounded-3xl overflow-hidden max-w-xl mx-auto">
-            <div className="bg-green-700 p-10 text-center relative overflow-hidden">
-              <div className="absolute inset-0 opacity-10">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="100%"
-                  height="100%"
-                  viewBox="0 0 800 600"
-                  preserveAspectRatio="none"
-                >
-                  <pattern
-                    id="pattern"
-                    patternUnits="userSpaceOnUse"
-                    width="100"
-                    height="100"
-                  >
-                    <path d="M0 0 L100 0 L50 50 Z" fill="white" opacity="0.2" />
-                  </pattern>
-                  <rect width="100%" height="100%" fill="url(#pattern)" />
-                </svg>
-              </div>
-
-              <div className="relative z-10">
-                <h1 className="text-5xl font-extrabold text-white mb-4 tracking-tight drop-shadow-lg">
-                  Custom Mock Test
-                </h1>
-                <p className="text-white/80 text-xl font-light tracking-wide">
-                  Prepare, Practice, Perform
-                </p>
-              </div>
-            </div>
-
-            <div className="p-10 space-y-6">
-              <div className="text-center">
-                <div className="relative border-2 border-dashed border-green-300 rounded-2xl p-8 mb-6 transition-all hover:border-green-500 group">
-                  <input
-                    type="file"
-                    accept=".json"
-                    onChange={handleFileUpload}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                  />
-                  <div className="text-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="mx-auto h-16 w-16 text-green-400 group-hover:text-green-600 transition-colors"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1}
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    {fileName ? (
-                      <p className="mt-4 text-gray-600 group-hover:text-green-700 transition-colors">
-                        {fileName}
-                      </p>
-                    ) : (
-                      <p className="mt-4 text-gray-600 group-hover:text-green-700 transition-colors">
-                        Drag and drop your JSON file or click to upload
-                      </p>
-                    )}
-                    <p className="text-sm text-gray-500 mt-2">
-                      File type: .json
-                    </p>
-                  </div>
-                </div>
-
-                {questions.length > 0 && (
-                  <div className="mb-4">
-                    <label
-                      htmlFor="shuffle-select"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Question Order
-                    </label>
-                    <select
-                      id="shuffle-select"
-                      value={shouldShuffle ? "shuffle" : "original"}
-                      onChange={(e) =>
-                        setShouldShuffle(e.target.value === "shuffle")
-                      }
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                    >
-                      <option value="shuffle">Shuffle Questions</option>
-                      <option value="original">Keep Original Order</option>
-                    </select>
-
-                    <button
-                      onClick={startTest}
-                      className="w-full mt-5 px-6 py-4 bg-gradient-to-r from-green-700 to-emerald-800 text-white rounded-xl font-bold 
-                      hover:from-green-700 hover:to-emerald-800 transition-all transform 
-                      hover:scale-105 shadow-xl hover:shadow-2xl active:scale-95"
-                    >
-                      Begin Test
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        ) : !isFinished ? (
-          <div className="bg-white shadow-2xl rounded-2xl overflow-hidden">
-            <div className="bg-gradient-to-r from-green-700 to-green-800 p-4 flex justify-between items-center text-white">
-              <div>
-                <span className="font-medium">Total Time: </span>
-                <span className="text-xl font-bold">{formattedTime}</span>
-              </div>
-              <div>
-                <span className="font-medium">Question </span>
-                <span className="text-xl font-bold">
-                  {currentQuestion + 1}/{questions.length}
-                </span>
-              </div>
-            </div>
-            <div className="p-8 space-y-6">
-              <div className="text-center mb-4">
-                <p className="text-gray-600">
-                  Question Time: {questionTimer} seconds
-                </p>
-              </div>
-
-              {questions.length > 0 && (
-                <>
-                  <div className="mb-8">
-                    <Question
-                      question={questions[currentQuestion]?.question}
-                      options={questions[currentQuestion]?.options}
-                      handleAnswer={setCurrentAnswer}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-4">
-                    <button
-                      disabled
-                      onClick={skipQuestion}
-                      className="px-6 py-3 bg-yellow-500 text-white rounded-lg font-semibold hover:bg-yellow-600 transition-all transform hover:scale-105 shadow-md"
-                    >
-                      No Skip, Do Mistake & Learn
-                    </button>
-
-                    <button
-                      onClick={submitAndNext}
-                      disabled={!currentAnswer}
-                      className={`px-6 py-3 rounded-lg text-white font-semibold transition-all transform hover:scale-105 shadow-md ${
-                        currentAnswer
-                          ? "bg-green-500 hover:bg-green-600"
-                          : "bg-gray-300 cursor-not-allowed"
-                      }`}
-                    >
-                      Submit & Next
-                    </button>
-
-                    <button
-                      onClick={handleFinish}
-                      className="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-all transform hover:scale-105 shadow-md"
-                    >
-                      Finish Test
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className="p-10 text-center">
-            <h2 className="text-3xl font-bold text-green-600 mb-6">
-              Test Completed Successfully
-            </h2>
-            <button
-              onClick={handleFinish}
-              className="px-10 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all transform hover:scale-105 shadow-lg"
-            >
-              View Results
-            </button>
-          </div>
+    <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          Mock Test Dashboard
+        </h1>
+        <JsonUpload onTextUpload={startTestWithQuestions} />
+        <UpcomingRevisions
+          revisions={upcomingRevisions}
+          sets={sets}
+          onStartRevision={handleStartRevision}
+        />
+        <QuestionSets
+          sets={sets}
+          filteredSets={filteredSets}
+          subjects={subjects}
+          topics={topics}
+          filter={filter}
+          onFilterChange={handleFilterChange}
+          onStartTest={startTestWithQuestions}
+          onScheduleRevision={handleSpacedRevision}
+          onDelete={handleDelete}
+          onStopRevision={handleStopRevision}
+          upcomingRevisions={upcomingRevisions}
+        />
+        {showFrequencyModal && (
+          <FrequencyModal
+            frequency={spacedRevisionFrequency}
+            onFrequencyChange={setSpacedRevisionFrequency}
+            onSubmit={handleFrequencySubmit}
+            onClose={() => setShowFrequencyModal(false)}
+          />
+        )}
+        {showPasswordModal && (
+          <PasswordModal
+            passwordInput={passwordInput}
+            passwordError={passwordError}
+            onPasswordChange={setPasswordInput}
+            onPasswordError={setPasswordError}
+            onSubmit={handlePasswordSubmit}
+            onClose={() => {
+              setShowPasswordModal(false);
+              setPasswordInput("");
+              setPasswordError("");
+              setDeleteSetId(null);
+              setSpacedRevisionSetId(null);
+              setStopRevisionId(null);
+            }}
+          />
         )}
       </div>
     </div>
