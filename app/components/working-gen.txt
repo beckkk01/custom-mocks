@@ -1,0 +1,215 @@
+"use client";
+
+import React, { useState } from "react";
+import { create, all } from "mathjs";
+
+const math = create(all);
+math.config({ number: "Fraction" });
+
+const ops = ["+", "-", "*", "/"];
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateExpression(type, terms) {
+  let expr = "";
+  for (let i = 0; i < terms; i++) {
+    let val;
+
+    if (type === "fraction") {
+      val = `${getRandomInt(1, 9)}/${getRandomInt(1, 9)}`;
+    } else if (type === "algebraic") {
+      val = getRandomInt(1, 9) + (Math.random() < 0.5 ? "" : "*x");
+    } else {
+      val = getRandomInt(1, 30);
+    }
+
+    expr +=
+      i === 0 ? val : ` ${ops[Math.floor(Math.random() * ops.length)]} ${val}`;
+  }
+  return `(${expr})`;
+}
+
+function formatToLatex(expr) {
+  try {
+    return `Simplify: $${math.parse(expr).toTex()}$`;
+  } catch {
+    return `Simplify: $${expr}$`;
+  }
+}
+
+function generateOptions(correct) {
+  const isInteger = Number.isInteger(correct);
+  const correctVal = isInteger
+    ? Math.round(correct)
+    : parseFloat(correct.toFixed(2));
+  const correctStr = `$${correctVal}$`;
+  const unitDigit = Math.abs(Math.floor(correctVal)) % 10;
+
+  const distractors = [];
+  const allOptions = new Set();
+
+  for (let i = -15; i <= 15; i++) {
+    if (i === 0) continue;
+    let fake = correctVal + i;
+    let fakeVal = isInteger ? Math.round(fake) : parseFloat(fake.toFixed(2));
+    let fakeStr = `$${fakeVal}$`;
+
+    if (fakeVal !== correctVal) {
+      allOptions.add(fakeStr);
+      if (Math.abs(Math.floor(fakeVal)) % 10 === unitDigit) {
+        distractors.push(fakeStr);
+      }
+    }
+  }
+
+  const selected = new Set();
+  selected.add(correctStr);
+
+  while (selected.size < 3 && distractors.length > 0) {
+    const idx = Math.floor(Math.random() * distractors.length);
+    selected.add(distractors.splice(idx, 1)[0]);
+  }
+
+  const remaining = [...allOptions].filter((opt) => !selected.has(opt));
+  while (selected.size < 4 && remaining.length > 0) {
+    const idx = Math.floor(Math.random() * remaining.length);
+    selected.add(remaining.splice(idx, 1)[0]);
+  }
+
+  return Array.from(selected).sort(() => Math.random() - 0.5);
+}
+
+export default function SimplificationGenerator() {
+  const [types, setTypes] = useState(["arithmetic"]);
+  const [terms, setTerms] = useState(2);
+  const [questionCount, setQuestionCount] = useState(5);
+  const [jsonOutput, setJsonOutput] = useState("");
+
+  function handleTypeChange(type) {
+    setTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+    );
+  }
+
+  function generateQuestions() {
+    const results = [];
+    const maxAttempts = questionCount * 6;
+    let attempts = 0;
+    let count = 1;
+
+    while (results.length < questionCount && attempts < maxAttempts) {
+      attempts++;
+
+      const type =
+        types.length === 1
+          ? types[0]
+          : types[Math.floor(Math.random() * types.length)];
+      const expr = generateExpression(type, terms);
+
+      let answer = null;
+      try {
+        // If algebraic, substitute x = 1
+        const scope = { x: 1 };
+        const raw = math.evaluate(expr, scope);
+        answer =
+          typeof raw?.valueOf === "function"
+            ? Number(raw.valueOf())
+            : Number(raw);
+      } catch {
+        continue;
+      }
+
+      if (answer === null || isNaN(answer)) continue;
+
+      const question = {
+        id: count++,
+        question: formatToLatex(expr), // e.g., $3x + 4$
+        options: generateOptions(answer), // now even for algebraic
+        answer: `$${Number.isInteger(answer) ? answer : answer.toFixed(2)}$`,
+      };
+
+      results.push(question);
+    }
+
+    setJsonOutput(JSON.stringify(results, null, 2));
+  }
+
+  return (
+    <div style={{ padding: "1rem", maxWidth: "800px", margin: "0 auto" }}>
+      <h2>Simplification Question Generator</h2>
+
+      <div style={{ margin: "1rem 0" }}>
+        <label>Select Types:</label>
+        {["arithmetic", "fraction", "algebraic"].map((type) => (
+          <label key={type} style={{ marginLeft: "10px" }}>
+            <input
+              type="checkbox"
+              checked={types.includes(type)}
+              onChange={() => handleTypeChange(type)}
+            />
+            {type}
+          </label>
+        ))}
+      </div>
+
+      <div style={{ marginBottom: "1rem" }}>
+        <label>
+          Number of Terms (Difficulty): {terms}
+          <input
+            type="range"
+            min="2"
+            max="8"
+            value={terms}
+            onChange={(e) => setTerms(parseInt(e.target.value))}
+            style={{ width: "100%" }}
+          />
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "1rem" }}>
+        <label>
+          Number of Questions:
+          <select
+            value={questionCount}
+            onChange={(e) => setQuestionCount(parseInt(e.target.value))}
+            style={{ marginLeft: "10px" }}
+          >
+            {[5, 10, 15, 20].map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      <button
+        onClick={generateQuestions}
+        style={{
+          padding: "0.5rem 1rem",
+          backgroundColor: "#0070f3",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+        }}
+      >
+        Generate Questions
+      </button>
+
+      <textarea
+        value={jsonOutput}
+        readOnly
+        rows="20"
+        style={{
+          marginTop: "1rem",
+          width: "100%",
+          fontFamily: "monospace",
+          padding: "1rem",
+          border: "1px solid #ccc",
+        }}
+      />
+    </div>
+  );
+}

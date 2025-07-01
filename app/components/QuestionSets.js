@@ -19,8 +19,8 @@ const QuestionSets = ({
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4 underline">
-        Custom Mocks
+      <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        Maths & Reasoning Question Bank
       </h2>
       {/* Filter Toggle Button for Mobile */}
       <div className="sm:hidden mb-4">
@@ -91,8 +91,8 @@ const QuestionSets = ({
           <input
             type="text"
             placeholder="Filter by remark"
-            value={filter.remark}
-            onChange={(e) => onFilterChange("remark", e.target.value)}
+            value={filter.remarkable}
+            onChange={(e) => onFilterChange("remarkable", e.target.value)}
             className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>

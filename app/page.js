@@ -1,5 +1,6 @@
 // components/Home.jsx
 "use client";
+
 import React, { useState, useEffect } from "react";
 import {
   collection,
@@ -16,6 +17,8 @@ import UpcomingRevisions from "@/app/components/UpcomingRevisions";
 import QuestionSets from "@/app/components/QuestionSets";
 import FrequencyModal from "@/app/components/FrequencyModal";
 import PasswordModal from "@/app/components/PasswordModal";
+//import EnglishBulkUploader from "./components/EnglishBulkUploader";
+import EnglishComponent from "@/app/components/EnglishComponent";
 
 const Home = () => {
   const router = useRouter();
@@ -74,15 +77,15 @@ const Home = () => {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        for (const doc of revisionSnapshot.docs) {
-          const revision = { id: doc.id, ...doc.data() };
+        for (const revisionDoc of revisionSnapshot.docs) {
+          const revision = { id: revisionDoc.id, ...revisionDoc.data() };
           const hasValidDates = revision.revisionDates.some(
             (date) => new Date(date) >= today
           );
           if (hasValidDates) {
             revisionData.push(revision);
           } else {
-            await deleteDoc(doc(db, "SpacedRevision", doc.id));
+            await deleteDoc(doc(db, "SpacedRevision", revisionDoc.id));
           }
         }
         setUpcomingRevisions(revisionData);
@@ -106,6 +109,36 @@ const Home = () => {
     if (selectedSubject && !filteredTopics.includes(filter.topic)) {
       setFilter((prev) => ({ ...prev, topic: "" }));
     }
+  };
+
+  const handleFilterChange = (field, value) => {
+    const newFilter = { ...filter, [field]: value };
+    setFilter(newFilter);
+
+    if (field === "subject") {
+      updateTopics(sets, value);
+    }
+
+    const filtered = sets.filter(
+      (set) =>
+        (!newFilter.name ||
+          set.name.toLowerCase().includes(newFilter.name.toLowerCase())) &&
+        (!newFilter.subject ||
+          set.subject
+            .toLowerCase()
+            .includes(newFilter.subject.toLowerCase())) &&
+        (!newFilter.topic ||
+          set.topic?.toLowerCase().includes(newFilter.topic.toLowerCase())) &&
+        (!newFilter.remark ||
+          set.remark.toLowerCase().includes(newFilter.remark.toLowerCase()))
+    );
+    // Apply sorting based on sortBy field
+    const sortedFiltered = filtered.sort((a, b) =>
+      newFilter.sortBy === "newest"
+        ? b.createdAt - a.createdAt
+        : a.createdAt - b.createdAt
+    );
+    setFilteredSets(sortedFiltered);
   };
 
   const startTestWithQuestions = (questions) => {
@@ -273,12 +306,15 @@ const Home = () => {
           sets={sets}
           onStartRevision={handleStartRevision}
         />
+
+        <EnglishComponent />
         <QuestionSets
           sets={sets}
           filteredSets={filteredSets}
           subjects={subjects}
           topics={topics}
           filter={filter}
+          onFilterChange={handleFilterChange}
           onStartTest={startTestWithQuestions}
           onScheduleRevision={handleSpacedRevision}
           onDelete={handleDelete}

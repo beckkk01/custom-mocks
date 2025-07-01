@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Latex from "react-latex-next";
 import "katex/dist/katex.min.css";
-import { sanitizeLatexString } from "../../utils/sanitizeLatexString";
+//import { sanitizeLatexString } from "../../utils/sanitizeLatexString";
 
 const Question = ({ question, options, handleAnswer }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -42,7 +42,7 @@ const Question = ({ question, options, handleAnswer }) => {
         {/* Question */}
         <div className="mb-4 sm:mb-5">
           <p className="text-base sm:text-lg font-medium text-gray-900 leading-relaxed">
-            <Latex>{sanitizeLatexString(question)}</Latex>
+            <Latex>{question}</Latex>
           </p>
         </div>
 
@@ -68,7 +68,7 @@ const Question = ({ question, options, handleAnswer }) => {
                   {optionLabels[index]}.
                 </span>
                 <span className="text-sm sm:text-base">
-                  <Latex>{sanitizeLatexString(option)}</Latex>
+                  <Latex>{option}</Latex>
                 </span>
               </button>
             );

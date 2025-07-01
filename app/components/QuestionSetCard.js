@@ -29,14 +29,13 @@ const QuestionSetCard = ({
           {/* Badge and title */}
           <div className="flex items-center gap-2 mb-1">
             <h3 className="font-bold text-gray-900">
-              {set.name || "Untitled Question Set"}
+              {set.topic} {set.name || "Untitled Question Set"}
             </h3>
           </div>
           {/* Metadata */}
           <div className="text-gray-600 mt-1">
             <p className="underline">
-              {set.subject} {set.topic} &middot;{" "}
-              {getTotalQuestions(set.questions)} Ques
+              {set.subject} &middot; {getTotalQuestions(set.questions)} Ques
             </p>
             <p className="text-gray-500 mt-1  line-clamp-2">
               {set.remark || "No remarks available."}
